@@ -7,20 +7,45 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div id="container"></div>
+    <div>
+        <button onClick="promptNewGrid()">Button!</button>
+    </div>
+    <div id="container">
+        <div id="spaceHolder"></div>
+    </div>
     
     <script>
-        let container = document.querySelector("#container");
-        for (let i = 0; i < 16; i++) {
-            let row = document.createElement("div");
-            row.classList.add("row");
-            for (let j = 0; j < 16; j++) {
-                let box = document.createElement("div");
-                box.classList.add("gridBox");
-                row.appendChild(box);
+        function createGrid(numOfSquares) {
+            let container = document.querySelector("#container");
+            container.firstElementChild.remove();
+
+            let currentGrid = document.createElement("div");
+            currentGrid.setAttribute("id", "currentGrid");
+
+            for (let i = 0; i < numOfSquares; i++) {
+                let row = document.createElement("div");
+                row.classList.add("row");
+                for (let j = 0; j < numOfSquares; j++) {
+                    let box = document.createElement("div");
+                    box.classList.add("gridBox");
+                    row.appendChild(box);
+                }
+            currentGrid.appendChild(row);
             }
-            container.appendChild(row);
+            container.appendChild(currentGrid)
         }
+
+        function promptNewGrid() {
+            let numOfSquares = prompt("Enter a number of squares per side (1-100)");
+            if (Number.isNaN(parseInt(numOfSquares)) || parseInt(numOfSquares) > 100 || parseInt(numOfSquares) < 1) {
+                alert("Invalid input.");
+            }
+            else {
+                createGrid(numOfSquares);
+            }
+        }
+        createGrid(16);
+
     </script>
 </body>
 </html>
