@@ -9,13 +9,30 @@
 <body>
     <div>
         <button onClick="promptNewGrid()">Button!</button>
+        <button onClick="changeToOpacity()">Opacity Mode</button>
+        <button onClick="changeToColor()">Color Mode</button>
+
     </div>
     <div id="container">
         <div id="spaceHolder"></div>
     </div>
     
     <script>
+        let mode = "color";
+        let numOfSquares = 16;
+
+        function changeToColor() {
+            mode = "color";
+            createGrid(numOfSquares);
+        }
+        function changeToOpacity() {
+            mode = "opacity";
+            createGrid(numOfSquares);
+        }
+
+        let hueValue = 0;
         function createGrid(numOfSquares) {
+            hueValue = 0;
             let container = document.querySelector("#container");
             container.firstElementChild.remove();
 
@@ -28,23 +45,44 @@
                 for (let j = 0; j < numOfSquares; j++) {
                     let box = document.createElement("div");
                     box.classList.add("gridBox");
+                    box.addEventListener("mouseenter", function(e) {
+                        if (mode == "color") {colorIn(box)};
+                        if (mode == "opacity") {opacityIn(box)};
+                    });
                     row.appendChild(box);
                 }
             currentGrid.appendChild(row);
             }
-            container.appendChild(currentGrid)
+            container.appendChild(currentGrid);
+        }
+
+        function colorIn(box) {
+            let myString = "hsl(" + hueValue + ", 100%, 70%)";
+            hueValue = hueValue += 2;
+            box.setAttribute("style", "background-color: " + myString);
+        }
+
+        function opacityIn(box) {
+            box.style.backgroundColor = "black";
+            if (box.style.opacity == "") {
+                box.style.opacity = 0.2;
+            }
+            else {
+                box.style.opacity = (parseFloat(box.style.opacity) + 0.2);
+            }
         }
 
         function promptNewGrid() {
-            let numOfSquares = prompt("Enter a number of squares per side (1-100)");
-            if (Number.isNaN(parseInt(numOfSquares)) || parseInt(numOfSquares) > 100 || parseInt(numOfSquares) < 1) {
+            let inputNum = prompt("Enter a number of squares per side (1-100)");
+            if (Number.isNaN(parseInt(inputNum)) || parseInt(inputNum) > 100 || parseInt(inputNum) < 1) {
                 alert("Invalid input.");
             }
             else {
+                numOfSquares = inputNum;
                 createGrid(numOfSquares);
             }
         }
-        createGrid(16);
+        createGrid(numOfSquares);
 
     </script>
 </body>

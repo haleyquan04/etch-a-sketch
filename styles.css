@@ -1,0 +1,27 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
+#container {
+    outline: 10px solid rgb(202, 202, 202);
+}
+
+#currentGrid {
+    display: flex;
+    width: 500px;
+    height: 500px;
+    flex-direction: column;
+    gap: 1px;
+}
+
+.row {
+    display: flex;
+    flex-grow: 1;
+    gap: 1px;
+}
+
+.gridBox {
+    /* outline: 1px solid rgb(230, 230, 230); */
+    flex-grow: 1;
+}
