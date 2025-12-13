@@ -7,12 +7,16 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div>
-        <button onClick="promptNewGrid()">Button!</button>
-        <button onClick="changeToOpacity()">Opacity Mode</button>
-        <button onClick="changeToColor()">Color Mode</button>
+    <div id="button-area">
+        <button onClick="promptNewGrid()">Change Grid Size</button>
+
+        <div id="mode-area">
+            <button id="opacity-button" onClick="changeToOpacity()">Opacity Mode</button>
+            <button id="color-button" onClick="changeToColor()">Color Mode</button>
+        </div>
 
     </div>
+
     <div id="container">
         <div id="spaceHolder"></div>
     </div>
@@ -23,10 +27,14 @@
 
         function changeToColor() {
             mode = "color";
+            document.querySelector("#color-button").classList.add("selected-button");
+            document.querySelector("#opacity-button").classList.remove("selected-button");
             createGrid(numOfSquares);
         }
         function changeToOpacity() {
             mode = "opacity";
+            document.querySelector("#opacity-button").classList.add("selected-button");
+            document.querySelector("#color-button").classList.remove("selected-button");
             createGrid(numOfSquares);
         }
 
